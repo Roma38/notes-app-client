@@ -5,7 +5,7 @@ import { Container } from "semantic-ui-react";
 import { Route } from "react-router-dom";
 
 import { getPosts } from "./store/actions/posts";
-// import HomePage from "./components/HomePage";
+import HomePage from "./components/HomePage";
 import AddPostPage from "./components/AddPostPage";
 
 
@@ -20,9 +20,9 @@ function App() {
 
   return (
     <Container className="application">
-      {/* <Route path="/" exact>
+      <Route path="/" exact>
         <HomePage />
-      </Route> */}
+      </Route>
 
       <Route path="/add-post">
         <AddPostPage />
