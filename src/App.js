@@ -7,6 +7,7 @@ import { Route } from "react-router-dom";
 import { getPosts } from "./store/actions/posts";
 import HomePage from "./components/HomePage";
 import AddPostPage from "./components/AddPostPage";
+import PostPage from "./components/PostPage";
 
 
 
@@ -30,11 +31,11 @@ function App() {
 
       {/* <Route path="/edit/:id">
         <EditPostPage />
-      </Route>
+      </Route> */}
 
       <Route path="/post/:id">
         <PostPage />
-      </Route> */}
+      </Route>
     </Container>
   );
 }

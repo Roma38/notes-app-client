@@ -10,9 +10,14 @@ function HomePage() {
     <>
       <Header as="h1" textAlign="center" content="Главная" />
       <List bulleted>
+        <List.Item>
+          <List.Header as={Link} to={`/add-post`}>Добавить запись</List.Header>
+        </List.Item>
+
         {posts.items.map(post => <List.Item key={post._id}>
           <List.Header as={Link} to={`/post/${post._id}`}>{post.title}</List.Header>
-          {post.author} {new Date(post.createdAt).toLocaleString()}
+          <i>Автор: {post.author}</i>
+          <div>{new Date(post.createdAt).toLocaleString()}</div>
         </List.Item>)}
       </List>
     </>
