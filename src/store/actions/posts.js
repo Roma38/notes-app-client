@@ -54,7 +54,7 @@ export const postPost = payload => dispatch => {
     .catch(({ response }) => {
       console.error(response);
       if (response.status === 422) {
-        alert("Choose another Nickname");
+        alert("Запись с таким заголовком уже существует!");
       } else {
         alert("Oops, something went wrong!!!!!");
       }
@@ -71,7 +71,7 @@ export const putPost = payload => dispatch => {
     .catch(({ response }) => {
       console.error(response);
       if (response.status === 422) {
-        alert("Choose another Nickname");
+        alert("Запись с таким заголовком уже существует!");
       } else {
         alert("Oops, something went wrong!!!!!");
       }

@@ -2,9 +2,10 @@ import React, { useEffect } from "react";
 import "./App.css";
 import { useSelector, useDispatch } from "react-redux";
 import { Container } from "semantic-ui-react";
-import { Route } from "react-router-dom";
+import { Route, useLocation } from "react-router-dom";
 
 import { getPosts } from "./store/actions/posts";
+import { setDocumentTitle } from "./utils";
 import HomePage from "./components/HomePage";
 import AddPostPage from "./components/AddPostPage";
 import PostPage from "./components/PostPage";
@@ -12,12 +13,17 @@ import PostPage from "./components/PostPage";
 
 
 function App() {
-  const posts = useSelector(state => state.posts);
+  const posts = useSelector(state => state.posts.items);
   const dispatch = useDispatch();
+  let { pathname } = useLocation();
 
   useEffect(() => {
     dispatch(getPosts());
   }, []);
+
+  useEffect(() => {
+    setDocumentTitle(pathname, posts)
+  }, [pathname, posts]);
 
   return (
     <Container className="application">

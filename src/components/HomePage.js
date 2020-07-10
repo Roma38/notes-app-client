@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Header, List } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
