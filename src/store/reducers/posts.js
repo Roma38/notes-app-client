@@ -8,7 +8,7 @@ import {
 } from "../actions/posts.js";
 
 const initialState = {
-  loadingState: "",
+  loadingState: null,
   error: null,
   items: []
 };

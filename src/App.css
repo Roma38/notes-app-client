@@ -1,0 +1,13 @@
+.application {
+  margin-top: 30px;
+}
+
+.add-edit-form.ui.form, .segment-block.ui.segment {
+  max-width: 600px;
+  margin: 60px auto;
+}
+
+.buttons-align-wrapper {
+  text-align: center;
+  margin-top: 50px;
+}
