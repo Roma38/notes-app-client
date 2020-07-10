@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import "./App.css";
 import { useSelector, useDispatch } from "react-redux";
-import { Container } from "semantic-ui-react";
 import { Route, useLocation } from "react-router-dom";
 
 import { getPosts } from "./store/actions/posts";
@@ -19,14 +18,14 @@ function App() {
 
   useEffect(() => {
     dispatch(getPosts());
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     setDocumentTitle(pathname, posts)
   }, [pathname, posts]);
 
   return (
-    <Container className="application">
+    <div className="application">
       <Route path="/" exact>
         <HomePage />
       </Route>
@@ -42,7 +41,7 @@ function App() {
       <Route path="/post/:id">
         <PostPage />
       </Route>
-    </Container>
+    </div>
   );
 }
 

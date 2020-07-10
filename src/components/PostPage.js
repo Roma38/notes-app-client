@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Segment, Button, Header, Image } from "semantic-ui-react";
+import { Segment, Button, Header } from "semantic-ui-react";
 import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
