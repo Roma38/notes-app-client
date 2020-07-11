@@ -8,3 +8,20 @@
   text-align: center;
   margin-top: 50px;
 }
+
+.editorClassName {
+ min-height: 200px;
+}
+
+.wrapperClassName {
+  border: 1px solid rgba(34,36,38,.15); 
+  color: rgba(0,0,0,.87);
+  border-radius: .28571429rem;
+  box-shadow: 0 0 0 0 transparent inset;
+  transition: color .1s ease,border-color .1s ease;
+  padding: .67857143em 1em;
+  margin: 0 0 1em;
+}
+
+
+

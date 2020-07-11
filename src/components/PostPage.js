@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { deletePost } from "../store/actions/posts";
 import { history } from "../history";
 
-
 function PostPage() {
   const { id } = useParams();
   const posts = useSelector(state => state.posts);
@@ -28,12 +27,14 @@ function PostPage() {
     <Segment className="segment-block" >
       <Header as="h1" textAlign="center" content={post.title} />
 
-      <p>{post.body}</p>
+      <div
+        contentEditable='true'
+        dangerouslySetInnerHTML={{ __html: posts.loadingState === "succeed" ? post.body : "" }}
+      />
       <i>Автор: {post.author}</i>
       <p><strong></strong>{new Date(post.createdAt).toLocaleString()}</p>
 
       <div className="buttons-align-wrapper">
-        {/* <Button as={Link} to={`/edit/${id}`} positive>Edit</Button> */}
         <Button onClick={deleteHandler} negative>Delete</Button>
         <Button as={Link} to={"/"} primary>Back</Button>
       </div>
