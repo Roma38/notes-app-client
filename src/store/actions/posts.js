@@ -6,7 +6,6 @@ export const POSTS_LOADING = "POSTS_LOADING";
 export const POSTS_LOAD_SUCCEED = "POSTS_LOAD_SUCCEED";
 export const POSTS_LOAD_FAILED = "POSTS_LOAD_FAILED";
 export const ADD_POST = "ADD_POST";
-export const EDIT_POST = "EDIT_POST";
 export const DELETE_POST = "DELETE_POST";
 
 export const postsLoadStart = () => ({ type: POSTS_LOADING });
@@ -26,11 +25,6 @@ export const addPost = payload => ({
   payload
 });
 
-export const editPost = payload => ({
-  type: EDIT_POST,
-  payload
-});
-
 export const removePost = payload => ({
   type: DELETE_POST,
   payload
@@ -45,6 +39,7 @@ export const getPosts = () => dispatch => {
 };
 
 export const postPost = payload => dispatch => {
+  dispatch(postsLoadStart());
   axios
     .post(`${API_HOST}/posts`, payload)
     .then(({ data }) => {
@@ -53,28 +48,7 @@ export const postPost = payload => dispatch => {
     })
     .catch(({ response }) => {
       console.error(response);
-      if (response.status === 422) {
-        alert("Запись с таким заголовком уже существует!");
-      } else {
-        alert("Oops, something went wrong!!!!!");
-      }
-    });
-};
-
-export const putPost = payload => dispatch => {
-  axios
-    .put(`${API_HOST}/posts`, payload)
-    .then(({ data }) => {
-      dispatch(editPost(data));
-      history.push("/");
-    })
-    .catch(({ response }) => {
-      console.error(response);
-      if (response.status === 422) {
-        alert("Запись с таким заголовком уже существует!");
-      } else {
-        alert("Oops, something went wrong!!!!!");
-      }
+      dispatch(postsLoadFailed(response))
     });
 };
 

@@ -3,7 +3,6 @@ import {
   POSTS_LOAD_SUCCEED,
   POSTS_LOAD_FAILED,
   ADD_POST,
-  EDIT_POST,
   DELETE_POST
 } from "../actions/posts.js";
 
@@ -16,31 +15,27 @@ const initialState = {
 export const postsReducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case POSTS_LOADING:
-      return { ...state, loadingState: "loading" };
+      return { ...state, error: null, loadingState: "loading" };
     case POSTS_LOAD_SUCCEED:
-      return { ...state, loadingState: "succeed", items: payload };
+      return { ...state, error: null, loadingState: "succeed", items: payload };
     case POSTS_LOAD_FAILED:
       return {
         ...state,
         loadingState: "failed",
-        error: payload,
-        items: []
+        error: payload
       };
     case ADD_POST:
       return {
         ...state,
+        error: null,
+        loadingState: "succeed",
         items: [...state.items, payload]
-      };
-    case EDIT_POST:
-      return {
-        ...state,
-        items: state.items.map(item =>
-          item._id === payload._id ? payload : item
-        )
       };
     case DELETE_POST:
       return {
         ...state,
+        error: null,
+        loadingState: "succeed",
         items: state.items.filter(({ _id }) => _id !== payload._id)
       };
 
