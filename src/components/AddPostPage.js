@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form, Button, Header } from "semantic-ui-react";
+import { Form, Button, Header, Message } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { EditorState, convertToRaw } from 'draft-js';
@@ -11,7 +11,7 @@ import { postPost } from "../store/actions/posts";
 
 function AddPost() {
   const [post, setPost] = useState({ title: "", body: EditorState.createEmpty(), author: "" });
-  const loadingState = useSelector(state => state.posts.loadingState);
+  const {loadingState, error} = useSelector(state => state.posts);
   const dispatch = useDispatch();
 
   const submitHandler = () => {
@@ -49,6 +49,11 @@ function AddPost() {
         <Button type="submit" positive loading={loadingState === "loading"}>Save</Button>
         <Button as={Link} to={"/"} negative>Cancel</Button>
       </div>
+
+      {loadingState === "failed" && <Message negative>
+        <Message.Header>Запись не была добавлена :(</Message.Header>
+        {error.status === 422 && <p>Заголовок записи должен быть уникальным</p>}
+      </Message>}
     </Form>
   );
 }
