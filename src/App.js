@@ -8,6 +8,7 @@ import { setDocumentTitle } from "./utils";
 import HomePage from "./components/HomePage";
 import AddPostPage from "./components/AddPostPage";
 import PostPage from "./components/PostPage";
+import Message from "./components/Message";
 
 
 
@@ -26,6 +27,8 @@ function App() {
 
   return (
     <div className="application">
+      <Message />
+
       <Route path="/" exact>
         <HomePage />
       </Route>
@@ -33,10 +36,6 @@ function App() {
       <Route path="/add-post">
         <AddPostPage />
       </Route>
-
-      {/* <Route path="/edit/:id">
-        <EditPostPage />
-      </Route> */}
 
       <Route path="/post/:id">
         <PostPage />

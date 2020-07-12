@@ -1,6 +1,7 @@
 import axios from "axios";
 import { API_HOST } from "../../config";
 import { history } from "../../history";
+import { showMessage } from "./messages";
 
 export const POSTS_LOADING = "POSTS_LOADING";
 export const POSTS_LOAD_SUCCEED = "POSTS_LOAD_SUCCEED";
@@ -39,7 +40,6 @@ export const getPosts = () => dispatch => {
 };
 
 export const postPost = payload => dispatch => {
-  dispatch(postsLoadStart());
   axios
     .post(`${API_HOST}/posts`, payload)
     .then(({ data }) => {
@@ -48,7 +48,11 @@ export const postPost = payload => dispatch => {
     })
     .catch(({ response }) => {
       console.error(response);
-      dispatch(postsLoadFailed(response))
+      dispatch(showMessage({ 
+        isPositive: false, 
+        header: "Не получилось добавить запись :(", 
+        body: response.status === 422 ? "Заголовок записи должен быть уникальным" : ""
+      }));
     });
 };
 
@@ -60,6 +64,10 @@ export const deletePost = _id => dispatch => {
     })
     .catch(({ response }) => {
       console.error(response);
-      alert("Oops, something went wrong!!!!!");
+      dispatch(showMessage({
+        isPositive: false,
+        header: "Не получилось удалить запись :(",
+        body: ""
+      }));
     });
 };

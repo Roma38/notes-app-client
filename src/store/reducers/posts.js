@@ -27,15 +27,11 @@ export const postsReducer = (state = initialState, { type, payload }) => {
     case ADD_POST:
       return {
         ...state,
-        error: null,
-        loadingState: "succeed",
         items: [...state.items, payload]
       };
     case DELETE_POST:
       return {
         ...state,
-        error: null,
-        loadingState: "succeed",
         items: state.items.filter(({ _id }) => _id !== payload._id)
       };
 
