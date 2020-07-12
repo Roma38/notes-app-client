@@ -34,9 +34,16 @@ function PostPage() {
         <i>Автор: {post.author}</i>
         <p><strong></strong>{new Date(post.createdAt).toLocaleString()}</p>
       </div>
-      
+
       <div className="buttons-align-wrapper">
-        <Button onClick={() => setIsConfirmOpen(true)} negative>Удалить</Button>
+        <Button
+          onClick={() => setIsConfirmOpen(true)}
+          negative
+          loading={posts.isWaitingResponse}
+          disabled={posts.isWaitingResponse}
+        >
+          Удалить
+        </Button>
         <Button as={Link} to={"/"} primary>Назад</Button>
       </div>
       <Confirm

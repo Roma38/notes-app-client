@@ -13,6 +13,7 @@ function AddPost() {
   const [post, setPost] = useState({ title: "", body: EditorState.createEmpty(), author: "" });
   const dispatch = useDispatch();
   const authors = useSelector(({ posts }) => new Set(posts.items.map(({ author }) => author)));
+  const { isWaitingResponse } = useSelector(({ posts }) => posts);
 
   const submitHandler = () => {
     dispatch(postPost({ ...post, body: draftToHtml(convertToRaw(post.body.getCurrentContent())) }))
@@ -47,11 +48,18 @@ function AddPost() {
         maxLength={70}
       />
       <datalist id='authors'>
-        {Array.from (authors).map(author => <option key={author} value={author} />)}
+        {Array.from(authors).map(author => <option key={author} value={author} />)}
       </datalist>
 
       <div className="buttons-align-wrapper">
-        <Button type="submit" positive>Сохранить</Button>
+        <Button
+          type="submit"
+          positive
+          loading={isWaitingResponse}
+          disabled={isWaitingResponse}
+        >
+          Сохранить
+        </Button>
         <Button as={Link} to={"/"} primary>Назад</Button>
       </div>
     </Form>
