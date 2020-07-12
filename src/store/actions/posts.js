@@ -36,7 +36,15 @@ export const getPosts = () => dispatch => {
   axios
     .get(`${API_HOST}/posts`)
     .then(({ data }) => dispatch(postsLoadSucceed(data)))
-    .catch(error => dispatch(postsLoadFailed(error)));
+    .catch(error => {
+      dispatch(postsLoadFailed(error));
+      dispatch(showMessage({
+        isPositive: false,
+        header: "Не получилось загрузить данные с сервера :(",
+        body: ""
+      }));
+    });
+    
 };
 
 export const postPost = payload => dispatch => {
@@ -45,6 +53,11 @@ export const postPost = payload => dispatch => {
     .then(({ data }) => {
       dispatch(addPost(data));
       history.push("/");
+      dispatch(showMessage({
+        isPositive: true,
+        header: "Запись успешно добавлена",
+        body: ""
+      }));
     })
     .catch(({ response }) => {
       console.error(response);
@@ -60,7 +73,13 @@ export const deletePost = _id => dispatch => {
   axios
     .delete(`${API_HOST}/posts`, { data: { _id } })
     .then(() => {
-      dispatch(removePost({ _id }));
+      history.push("/");
+      dispatch(removePost({ _id }));      
+      dispatch(showMessage({
+        isPositive: true,
+        header: "Запись успешно удалена",
+        body: ""
+      }));
     })
     .catch(({ response }) => {
       console.error(response);

@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { Segment, Button, Header } from "semantic-ui-react";
+import { Segment, Button, Header, Confirm } from "semantic-ui-react";
 import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import { deletePost } from "../store/actions/posts";
-import { history } from "../history";
 
 function PostPage() {
   const { id } = useParams();
   const posts = useSelector(state => state.posts);
   const [post, setPost] = useState({});
+  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -20,7 +20,6 @@ function PostPage() {
 
   const deleteHandler = () => {
     dispatch(deletePost(id));
-    history.push("/");
   }
 
   return (
@@ -35,9 +34,17 @@ function PostPage() {
       <p><strong></strong>{new Date(post.createdAt).toLocaleString()}</p>
 
       <div className="buttons-align-wrapper">
-        <Button onClick={deleteHandler} negative>Удалить</Button>
+        <Button onClick={() => setIsConfirmOpen(true)} negative>Удалить</Button>
         <Button as={Link} to={"/"} primary>Назад</Button>
       </div>
+      <Confirm
+        content="Удалить запись?"
+        cancelButton='Нет!'
+        confirmButton="Да"
+        open={isConfirmOpen}
+        onCancel={() => setIsConfirmOpen(false)}
+        onConfirm={deleteHandler}
+      />
     </Segment>
   );
 }
