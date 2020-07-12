@@ -45,8 +45,8 @@ function AddPost() {
       />
 
       <div className="buttons-align-wrapper">
-        <Button type="submit" positive>Save</Button>
-        <Button as={Link} to={"/"} negative>Cancel</Button>
+        <Button type="submit" positive>Сохранить</Button>
+        <Button as={Link} to={"/"} primary>Назад</Button>
       </div>
     </Form>
   );

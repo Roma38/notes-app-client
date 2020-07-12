@@ -35,8 +35,8 @@ function PostPage() {
       <p><strong></strong>{new Date(post.createdAt).toLocaleString()}</p>
 
       <div className="buttons-align-wrapper">
-        <Button onClick={deleteHandler} negative>Delete</Button>
-        <Button as={Link} to={"/"} primary>Back</Button>
+        <Button onClick={deleteHandler} negative>Удалить</Button>
+        <Button as={Link} to={"/"} primary>Назад</Button>
       </div>
     </Segment>
   );
