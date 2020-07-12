@@ -1,27 +1,45 @@
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
+import { useRouteMatch } from "react-router-dom";
 
 import { Routes, PageTitles } from "./constants";
 
+const PAGE_NOT_FOUND_TITLE = "Страница не найдена";
+
+const setDocumentTitle = (title) => {
+  document.title = title;
+}
+
 export function useDocumentTitle() {
   const posts = useSelector(state => state.posts.items);
-  const { pathname } = useLocation();
-  // const { id } = useParams();
+
+  const matchedRoute = [
+    useRouteMatch(Routes.Root),
+    useRouteMatch(Routes.AddPostPage),
+    useRouteMatch(Routes.PostPage),
+  ].find(route => route && route.isExact === true);
 
   useEffect(() => {
-    if (pathname === Routes.Root) {
-      document.title = PageTitles[Routes.Root];
-    } else if (pathname === Routes.AddPostPage) {
-      document.title = PageTitles[Routes.AddPostPage];
-    } else if (pathname.startsWith("/post/")) {
-      if (posts.length) {
-        const id = pathname.substring(pathname.lastIndexOf("/") + 1);
-        const title = posts.find(({ _id }) => _id === id).title;
-        document.title = PageTitles[Routes.PostPage](title);
-      }
-    } else {
-      document.title = "Страница не найдена";
+    if (!matchedRoute) {
+      setDocumentTitle(PAGE_NOT_FOUND_TITLE);
+      return;
     }
-  }, [pathname, posts]);
+
+    if (typeof PageTitles[matchedRoute.path] === "string") {
+      setDocumentTitle(PageTitles[matchedRoute.path]);
+      return;
+    }
+
+    switch (matchedRoute.path) {
+      case Routes.PostPage:
+        if (posts.length) {
+          const { id } = matchedRoute.params;
+          const title = posts.find(({ _id }) => _id === id).title;
+          setDocumentTitle(PageTitles[Routes.PostPage](title));
+        }
+        break;
+      default:
+        setDocumentTitle(PAGE_NOT_FOUND_TITLE);
+    }
+  }, [matchedRoute, posts]);
 }
