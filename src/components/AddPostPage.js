@@ -28,7 +28,7 @@ function AddPost() {
         required
         maxLength={70}
       />
-      <Form.Field required>{/* TODO: стили по фокусу */}
+      <Form.Field required>
         <label>Контент:</label>
         <Editor
           editorState={post.body}
@@ -44,6 +44,7 @@ function AddPost() {
         value={post.author}
         onChange={(e, data) => setPost({ ...post, author: data.value })}
         required
+        maxLength={70}
       />
       <datalist id='authors'>
         {Array.from (authors).map(author => <option key={author} value={author} />)}

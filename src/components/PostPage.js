@@ -30,9 +30,11 @@ function PostPage() {
         contentEditable='true'
         dangerouslySetInnerHTML={{ __html: posts.loadingState === "succeed" ? post.body : "" }}
       />
-      <i>Автор: {post.author}</i>
-      <p><strong></strong>{new Date(post.createdAt).toLocaleString()}</p>
-
+      <div className="post-info">
+        <i>Автор: {post.author}</i>
+        <p><strong></strong>{new Date(post.createdAt).toLocaleString()}</p>
+      </div>
+      
       <div className="buttons-align-wrapper">
         <Button onClick={() => setIsConfirmOpen(true)} negative>Удалить</Button>
         <Button as={Link} to={"/"} primary>Назад</Button>

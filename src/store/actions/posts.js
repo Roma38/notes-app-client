@@ -64,7 +64,7 @@ export const postPost = payload => dispatch => {
       dispatch(showMessage({ 
         isPositive: false, 
         header: "Не получилось добавить запись :(", 
-        body: response.status === 422 ? "Заголовок записи должен быть уникальным" : ""
+        body: response && response.status === 422 ? "Заголовок записи должен быть уникальным" : ""
       }));
     });
 };
